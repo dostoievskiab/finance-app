@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Finance App</title>
+</head>
+<body>
+    <h2>Income list:</h2>
+    {% if incomes %}
+        {% for income in incomes %}    
+            <b>Description:</b> {{ income.description }}<br>
+            <b>Amount:</b> {{ income.amount }}<br>
+        {% endfor %}
+    <b></b>
+    {% else %}
+        <b>No incomes</b>
+    {% endif %}
+</body>
+</html>
