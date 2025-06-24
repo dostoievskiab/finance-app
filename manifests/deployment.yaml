@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finance-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: finance-app
+  template:
+    metadata:
+      labels:
+        app: finance-app
+    spec:
+      containers:
+      - name: finance-app
+        image: dostoievskiab/finance-app:v20250624183951
+        ports:
+        - containerPort: 5000
