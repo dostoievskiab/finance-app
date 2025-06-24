@@ -1,11 +1,29 @@
 # Small finance app
 ### What is this repository?
 Here I want to put in practice a full ci/cd pipeline.
-We will use **Github actions** to push a containerized application and deploy it with **ArgoCD** on **Kubernetes** cluster running in my homelab.
+We will use **Github actions** to verify the linting of our code, then build docker image and push it to **Docker Hub**, after that our **ArgoCD** will trigger a sync and deploy the application in a **Kubernetes** cluster running in my homelab.
 
 In this repository you should find:
 - Small flask web application where we should be able to add and see our "incomes". It is meant to be simple and quick, based on tutorial from auth0: https://auth0.com/blog/developing-restful-apis-with-python-and-flask
-- Github actions yaml files
+- Github actions yaml files configuration
+- Manifests for the kubernetes deployment and service
+
+### ArgoCD setup
+Here is the application ArgoCD Yaml:
+```yaml
+project: default
+source:
+  repoURL: https://github.com/dostoievskiab/finance-app
+  path: manifests
+  targetRevision: HEAD
+destination:
+  server: https://kubernetes.default.svc
+  namespace: default
+syncPolicy:
+  automated:
+    selfHeal: true
+```
+![application running in ArgoCD](docs/argocd-sync.png)
 
 ### Running development environment
 ```bash
